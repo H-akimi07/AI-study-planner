@@ -396,6 +396,80 @@
           </div>
         </div>
       </section>
+
+      <!-- AI STUDY ASSISTANT -->
+
+      <section class="container py-5" id="aiAssistant">
+        ```
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+            <div class="card chatbot-card shadow-lg">
+              <!-- Header -->
+              <div class="chatbot-header p-4">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ai-avatar">🤖</div>
+
+                  <div>
+                    <h3 class="mb-1">AI Study Assistant</h3>
+
+                    <p class="mb-0 opacity-75">Your personal study companion</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chat Messages -->
+              <div id="chatMessages" class="chat-messages p-4">
+                <div class="chat-message ai-message">
+                  <div class="message-avatar">🤖</div>
+
+                  <div class="message-content">
+                    <div class="message-name">AI Assistant</div>
+
+                    <div class="message-bubble">
+                      Hi! 👋 I'm your AI Study Assistant. How can I help you
+                      study today?
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Typing Indicator -->
+              <div
+                id="typingIndicator"
+                class="typing-indicator px-4 pb-3 d-none"
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <small class="ms-2"> AI is thinking... </small>
+              </div>
+
+              <!-- Input -->
+              <div class="chat-input-area p-3">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    id="chatInput"
+                    class="form-control"
+                    placeholder="Ask your AI Study Assistant..."
+                    autocomplete="off"
+                  />
+
+                  <button
+                    class="btn btn-primary"
+                    id="sendChatBtn"
+                    type="button"
+                  >
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        ```
+      </section>
     </main>
 
     <!-- ================= TOAST ================= -->
