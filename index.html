@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>AI Study Planner</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+          <span class="brand-icon">
+            <i class="bi bi-stars"></i>
+          </span>
+          <span>Study<span class="brand-highlight">AI</span></span>
+        </a>
+
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-icon" id="themeToggle" title="Toggle theme">
+            <i class="bi bi-moon-stars"></i>
+          </button>
+
+          <div class="profile">
+            <div class="profile-avatar">S</div>
+            <div class="profile-info d-none d-md-block">
+              <strong>Student</strong>
+              <small>Learning mode</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container main-container">
+      <!-- HERO -->
+
+      <section class="hero-section">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="bi bi-stars"></i>
+            AI-Powered Learning
+          </div>
+
+          <h1>
+            Study smarter.<br />
+            <span>Achieve more.</span>
+          </h1>
+
+          <p>
+            Create a personalized study plan powered by AI, designed around your
+            goals, schedule, and learning style.
+          </p>
+        </div>
+
+        <div class="hero-decoration">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+
+          <div class="ai-orb">
+            <i class="bi bi-robot"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= DASHBOARD STATS ================= -->
+
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <i class="bi bi-calendar-week"></i>
+          </div>
+
+          <div>
+            <small>Study Days</small>
+            <h3 id="studyDays">0</h3>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <i class="bi bi-clock"></i>
+          </div>
+
+          <div>
+            <small>Weekly Hours</small>
+            <h3 id="weeklyHours">0h</h3>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <i class="bi bi-check-circle"></i>
+          </div>
+
+          <div>
+            <small>Completed</small>
+            <h3 id="completedTasks">0</h3>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <i class="bi bi-fire"></i>
+          </div>
+
+          <div>
+            <small>Study Streak</small>
+            <h3 id="studyStreak">0 days</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PLANNER ================= -->
+
+      <section class="planner-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">01 / YOUR PLAN</span>
+            <h2>Tell us about your goals</h2>
+            <p>
+              Give the AI some information and we'll create a personalized study
+              schedule.
+            </p>
+          </div>
+        </div>
+
+        <div class="planner-grid">
+          <!-- LEFT FORM -->
+
+          <div class="glass-card">
+            <form id="plannerForm">
+              <!-- Goal -->
+
+              <div class="form-group">
+                <label for="goal">
+                  <i class="bi bi-bullseye"></i>
+                  What is your main goal?
+                </label>
+
+                <textarea
+                  id="goal"
+                  class="form-control custom-input"
+                  rows="3"
+                  placeholder="Example: I want to prepare for my TOEFL exam and improve my English..."
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Subjects -->
+
+              <div class="form-group">
+                <label>
+                  <i class="bi bi-book"></i>
+                  Subjects
+                </label>
+
+                <div class="subject-input">
+                  <input
+                    type="text"
+                    id="subjectInput"
+                    class="form-control custom-input"
+                    placeholder="Enter a subject..."
+                  />
+
+                  <button type="button" class="btn add-btn" id="addSubject">
+                    <i class="bi bi-plus-lg"></i>
+                  </button>
+                </div>
+
+                <div id="subjectList" class="subject-list"></div>
+              </div>
+
+              <!-- Hours -->
+
+              <div class="form-group">
+                <label for="hours">
+                  <i class="bi bi-clock"></i>
+                  Available study time per day
+                </label>
+
+                <div class="range-wrapper">
+                  <input
+                    type="range"
+                    class="form-range"
+                    id="hours"
+                    min="1"
+                    max="10"
+                    value="3"
+                  />
+
+                  <div class="range-value">
+                    <strong id="hoursValue">3</strong>
+                    <span>hours / day</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Difficulty -->
+
+              <div class="form-group">
+                <label>
+                  <i class="bi bi-bar-chart"></i>
+                  Current level
+                </label>
+
+                <div class="level-options">
+                  <label class="level-option">
+                    <input type="radio" name="level" value="Beginner" checked />
+                    <span>Beginner</span>
+                  </label>
+
+                  <label class="level-option">
+                    <input type="radio" name="level" value="Intermediate" />
+                    <span>Intermediate</span>
+                  </label>
+
+                  <label class="level-option">
+                    <input type="radio" name="level" value="Advanced" />
+                    <span>Advanced</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Duration -->
+
+              <div class="form-group">
+                <label for="duration">
+                  <i class="bi bi-calendar3"></i>
+                  Plan duration
+                </label>
+
+                <select id="duration" class="form-select custom-input">
+                  <option value="7">1 Week</option>
+                  <option value="14">2 Weeks</option>
+                  <option value="30">1 Month</option>
+                </select>
+              </div>
+
+              <!-- Submit -->
+
+              <button
+                type="submit"
+                class="btn generate-btn w-100"
+                id="generateBtn"
+              >
+                <span id="generateText">
+                  <i class="bi bi-stars"></i>
+                  Generate My Study Plan
+                </span>
+
+                <span id="loadingSpinner" class="d-none">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+                  Creating your plan...
+                </span>
+              </button>
+            </form>
+          </div>
+
+          <!-- RIGHT AI PREVIEW -->
+
+          <div class="ai-preview glass-card">
+            <div class="preview-header">
+              <div>
+                <span class="section-label">AI ENGINE</span>
+                <h3>Your intelligent study coach</h3>
+              </div>
+
+              <div class="status-dot">
+                <span></span>
+                Ready
+              </div>
+            </div>
+
+            <div class="ai-message">
+              <div class="ai-avatar">
+                <i class="bi bi-stars"></i>
+              </div>
+
+              <div>
+                <strong>StudyAI</strong>
+
+                <p>
+                  I'll analyze your goals, available time, subjects, and level
+                  to create a study plan that fits your routine.
+                </p>
+              </div>
+            </div>
+
+            <div class="ai-features">
+              <div>
+                <i class="bi bi-calendar-check"></i>
+                <span>Personal schedule</span>
+              </div>
+
+              <div>
+                <i class="bi bi-lightbulb"></i>
+                <span>Smart recommendations</span>
+              </div>
+
+              <div>
+                <i class="bi bi-graph-up-arrow"></i>
+                <span>Progress tracking</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= GENERATED PLAN ================= -->
+
+      <section id="planSection" class="plan-section d-none">
+        <div class="section-heading plan-heading">
+          <div>
+            <span class="section-label">02 / YOUR AI PLAN</span>
+
+            <h2>Your personalized roadmap</h2>
+
+            <p id="planSummary">Your plan is ready.</p>
+          </div>
+
+          <button class="btn btn-outline-custom" id="regenerateBtn">
+            <i class="bi bi-arrow-repeat"></i>
+            Regenerate
+          </button>
+        </div>
+
+        <!-- AI Recommendation -->
+
+        <div class="recommendation-card">
+          <div class="recommendation-icon">
+            <i class="bi bi-stars"></i>
+          </div>
+
+          <div>
+            <span>AI Recommendation</span>
+
+            <p id="recommendation">
+              Stay consistent and focus on active recall.
+            </p>
+          </div>
+        </div>
+
+        <!-- Weekly Schedule -->
+
+        <div id="scheduleContainer" class="schedule-container"></div>
+
+        <!-- Progress -->
+
+        <div class="progress-card glass-card">
+          <div class="progress-header">
+            <div>
+              <span class="section-label">YOUR PROGRESS</span>
+              <h3>Keep going!</h3>
+            </div>
+
+            <strong id="progressPercent">0%</strong>
+          </div>
+
+          <div class="progress">
+            <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+          </div>
+
+          <div class="progress-footer">
+            <span id="progressText"> 0 of 0 tasks completed </span>
+
+            <button class="btn btn-sm reset-btn" id="resetProgress">
+              Reset
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= TOAST ================= -->
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-4">
+      <div id="appToast" class="toast" role="alert">
+        <div class="toast-body">
+          <i class="bi bi-check-circle me-2"></i>
+          <span id="toastMessage"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+
+    <script src="script.js"></script>
+  </body>
+</html>
