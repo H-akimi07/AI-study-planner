@@ -2,6 +2,8 @@
 
 > A modern, responsive study planning web application designed to help students organize their learning goals, create personalized study schedules, track progress, and receive AI-powered study recommendations.
 
+#Demo Link: https://ai-study-planner-nu-six.vercel.app/
+
 ## 🌟 Overview
 
 **AI Study Planner** is a web-based study management application that helps students turn their academic goals into structured study plans.
