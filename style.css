@@ -2325,7 +2325,7 @@ body.dark-mode .chat-input-area {
   overflow-wrap: anywhere;
   word-break: break-word;
 
-  border-radius: 5px 15px 15px 5px;
+  border-radius: 15px 15px 15px 5px;
 }
 
 /* AI bubble */
