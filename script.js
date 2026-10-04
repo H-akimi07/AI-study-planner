@@ -1,153 +1,38 @@
-/*
-AI CHATBOT */
+// STUDY AI - REAL AI CHAT
 
 const chatInput = document.getElementById("chatInput");
 const sendChatBtn = document.getElementById("sendChatBtn");
 const chatMessages = document.getElementById("chatMessages");
 const typingIndicator = document.getElementById("typingIndicator");
 
-// Get current study context
+// GET STUDY CONTEXT
+
 function getStudyContext() {
-  return {
-    goal: document.getElementById("goalInput")?.value || "",
+  const goal = document.getElementById("goal")?.value || "";
 
-    dailyHours: document.getElementById("hoursRange")?.value || "",
+  const dailyHours = document.getElementById("hours")?.value || "";
 
-    level: document.getElementById("levelSelect")?.value || "",
-  };
-}
+  const level =
+    document.querySelector('input[name="level"]:checked')?.value || "";
 
-// Add message to chat
-function addChatMessage(message, sender) {
-  const wrapper = document.createElement("div");
+  const subjectElements = document.querySelectorAll(
+    "#subjectList .subject-tag",
+  );
 
-  wrapper.className =
-    sender === "user" ? "chat-message user-message" : "chat-message ai-message";
-
-  const avatar = sender === "user" ? "👤" : "🤖";
-
-  const name = sender === "user" ? "You" : "AI Assistant";
-
-  wrapper.innerHTML = `
-    <div class="message-avatar">
-        ${avatar}
-    </div>
-
-    <div class="message-content">
-
-        <div class="message-name">
-            ${name}
-        </div>
-
-        <div class="message-bubble">
-            ${escapeChatHTML(message)}
-        </div>
-
-    </div>
-`;
-
-  chatMessages.appendChild(wrapper);
-
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-// Prevent HTML injection
-function escapeChatHTML(text) {
-  const div = document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
-}
-
-// Show typing indicator
-function showTyping() {
-  typingIndicator.classList.remove("d-none");
-
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-// Hide typing indicator
-function hideTyping() {
-  typingIndicator.classList.add("d-none");
-}
-
-// Send message
-async function sendChatMessage() {
-  const message = chatInput.value.trim();
-
-  if (!message) {
-    return;
-  }
-
-  // Display user message
-  addChatMessage(message, "user");
-
-  // Clear input
-  chatInput.value = "";
-
-  // Disable input while AI responds
-  chatInput.disabled = true;
-  sendChatBtn.disabled = true;
-
-  showTyping();
-
-  try {
-    // Call our fake API
-    const response = await fakeChatAPI(message, getStudyContext());
-
-    hideTyping();
-
-    if (response.success) {
-      addChatMessage(response.message, "ai");
-    } else {
-      addChatMessage(response.message || "Something went wrong.", "ai");
-    }
-  } catch (error) {
-    hideTyping();
-
-    addChatMessage("Sorry, I couldn't process your request.", "ai");
-
-    console.error("Chatbot error:", error);
-  } finally {
-    chatInput.disabled = false;
-    sendChatBtn.disabled = false;
-
-    chatInput.focus();
-  }
-}
-
-// Send button
-if (sendChatBtn) {
-  sendChatBtn.addEventListener("click", sendChatMessage);
-}
-
-// Enter key
-if (chatInput) {
-  chatInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-
-      sendChatMessage();
-    }
+  const subjects = Array.from(subjectElements).map((element) => {
+    return element.textContent.replace("×", "").trim();
   });
-}
 
-/*
-AI CHATBOT */
-
-// Get current study context
-function getStudyContext() {
   return {
-    goal: document.getElementById("goalInput")?.value || "",
-
-    dailyHours: document.getElementById("hoursRange")?.value || "",
-
-    level: document.getElementById("levelSelect")?.value || "",
+    goal,
+    subjects,
+    dailyHours,
+    level,
   };
 }
 
-// Add message to chat
+// ADD MESSAGE
+
 function addChatMessage(message, sender) {
   const wrapper = document.createElement("div");
 
@@ -155,33 +40,33 @@ function addChatMessage(message, sender) {
     sender === "user" ? "chat-message user-message" : "chat-message ai-message";
 
   const avatar = sender === "user" ? "👤" : "🤖";
-
-  const name = sender === "user" ? "You" : "AI Assistant";
+  const name = sender === "user" ? "You" : "StudyAI";
 
   wrapper.innerHTML = `
     <div class="message-avatar">
-        ${avatar}
+      ${avatar}
     </div>
 
     <div class="message-content">
 
-        <div class="message-name">
-            ${name}
-        </div>
+      <div class="message-name">
+        ${name}
+      </div>
 
-        <div class="message-bubble">
-            ${escapeChatHTML(message)}
-        </div>
+      <div class="message-bubble">
+        ${escapeChatHTML(message)}
+      </div>
 
     </div>
-`;
+  `;
 
   chatMessages.appendChild(wrapper);
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Prevent HTML injection
+// ESCAPE HTML
+
 function escapeChatHTML(text) {
   const div = document.createElement("div");
 
@@ -190,19 +75,20 @@ function escapeChatHTML(text) {
   return div.innerHTML;
 }
 
-// Show typing indicator
+// TYPING
+
 function showTyping() {
   typingIndicator.classList.remove("d-none");
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Hide typing indicator
 function hideTyping() {
   typingIndicator.classList.add("d-none");
 }
 
-// Send message
+// REAL AI REQUEST
+
 async function sendChatMessage() {
   const message = chatInput.value.trim();
 
@@ -210,35 +96,49 @@ async function sendChatMessage() {
     return;
   }
 
-  // Display user message
   addChatMessage(message, "user");
 
-  // Clear input
   chatInput.value = "";
 
-  // Disable input while AI responds
   chatInput.disabled = true;
   sendChatBtn.disabled = true;
 
   showTyping();
 
   try {
-    // Call our fake API
-    const response = await fakeChatAPI(message, getStudyContext());
+    const context = getStudyContext();
+
+    const response = await fetch("/api/chat", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        message,
+        context,
+      }),
+    });
+
+    const data = await response.json();
 
     hideTyping();
 
-    if (response.success) {
-      addChatMessage(response.message, "ai");
-    } else {
-      addChatMessage(response.message || "Something went wrong.", "ai");
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || "The AI could not process your request.");
     }
+
+    addChatMessage(data.message, "ai");
   } catch (error) {
     hideTyping();
 
-    addChatMessage("Sorry, I couldn't process your request.", "ai");
+    console.error("AI error:", error);
 
-    console.error("Chatbot error:", error);
+    addChatMessage(
+      "I couldn't connect to the AI right now. Please make sure the server is running and your API key is configured.",
+      "ai",
+    );
   } finally {
     chatInput.disabled = false;
     sendChatBtn.disabled = false;
@@ -247,12 +147,14 @@ async function sendChatMessage() {
   }
 }
 
-// Send button
+// SEND BUTTON
+
 if (sendChatBtn) {
   sendChatBtn.addEventListener("click", sendChatMessage);
 }
 
-// Enter key
+// ENTER KEY
+
 if (chatInput) {
   chatInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
