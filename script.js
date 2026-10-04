@@ -1,5 +1,5 @@
 // STUDY AI - REAL AI CHAT
-const API_URL = "https://YOUR-RENDER-BACKEND.onrender.com";
+const API_URL = "https://ai-study-planner-8ibp.onrender.com";
 const chatInput = document.getElementById("chatInput");
 const sendChatBtn = document.getElementById("sendChatBtn");
 const chatMessages = document.getElementById("chatMessages");
