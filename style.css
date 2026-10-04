@@ -2361,7 +2361,7 @@ body.dark-mode .chat-input-area {
 
 @media (max-width: 576px) {
   .chat-messages .chat-message {
-    gap: 8px;
+    gap: 18px;
     margin-bottom: 16px;
   }
 
