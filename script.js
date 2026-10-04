@@ -1,5 +1,5 @@
 // STUDY AI - REAL AI CHAT
-
+const API_URL = "https://YOUR-RENDER-BACKEND.onrender.com";
 const chatInput = document.getElementById("chatInput");
 const sendChatBtn = document.getElementById("sendChatBtn");
 const chatMessages = document.getElementById("chatMessages");
@@ -111,7 +111,7 @@ async function sendChatMessage() {
   try {
     const context = getStudyContext();
 
-    const response = await fetch("/api/chat", {
+    const response = await fetch(`${API_URL}/api/chat`, {
       method: "POST",
 
       headers: {
@@ -214,7 +214,7 @@ async function generateStudyPlan(event) {
   `;
 
   try {
-    const response = await fetch("/api/study-plan", {
+    const response = await fetch(`${API_URL}/api/study-plan`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
