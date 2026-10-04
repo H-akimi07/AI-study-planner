@@ -2370,7 +2370,7 @@ body.dark-mode .chat-input-area {
   }
 
   .chat-messages .message-bubble {
-    padding: 9px 12px;
+    padding: 19px 12px;
     font-size: 0.82rem;
     line-height: 1.5;
   }
