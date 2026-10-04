@@ -2273,7 +2273,7 @@ body.dark-mode .chat-input-area {
   }
 
   #chatInput {
-    padding-left: 11px;
+    padding-left: 1px;
     padding-right: 11px;
   }
 }
