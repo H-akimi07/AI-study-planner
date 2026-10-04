@@ -2333,7 +2333,7 @@ body.dark-mode .chat-input-area {
   background: var(--surface-light);
   color: var(--text);
 
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
 
   border-radius: 15px 15px 15px 5px;
 }
