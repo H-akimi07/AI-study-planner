@@ -114,6 +114,13 @@ Use this information when it is relevant.
 });
 
 // Default page
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "AI Study Planner backend is running",
+  });
+});
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
